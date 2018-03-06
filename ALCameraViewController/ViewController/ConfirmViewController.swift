@@ -103,7 +103,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         let frame = croppingParameters.isEnabled ? cropOverlay.frame : view.bounds
         
         scrollView.contentInset = calculateScrollViewInsets(frame)
-        scrollView.minimumZoomScale = scale
+        scrollView.minimumZoomScale = scale/10
         scrollView.zoomScale = scale
         centerScrollViewContents()
         centerImageViewOnRotate()
