@@ -41,11 +41,13 @@ internal class CropOverlay: UIView {
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         createLines()
+        isUserInteractionEnabled = false
     }
 
     internal required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         createLines()
+        isUserInteractionEnabled = false
     }
     
     override func layoutSubviews() {
@@ -143,7 +145,7 @@ internal class CropOverlay: UIView {
 		cornerButtons = [createButton(), createButton(), createButton(), createButton()]
 		
 		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
-//        addGestureRecognizer(dragGestureRecognizer)
+        addGestureRecognizer(dragGestureRecognizer)
     }
     
     func createLine() -> UIView {
@@ -158,7 +160,7 @@ internal class CropOverlay: UIView {
 		button.backgroundColor = UIColor.clear
 		
 		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
-//        button.addGestureRecognizer(dragGestureRecognizer)
+        button.addGestureRecognizer(dragGestureRecognizer)
 
 		addSubview(button)
 		return button
