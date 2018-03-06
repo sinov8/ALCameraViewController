@@ -31,7 +31,7 @@ internal class CropOverlay: UIView {
 
     let outterGapRatio: CGFloat = 1/3
     var outterGap: CGFloat {
-        return self.cornerButtonWidth * self.outterGapRatio
+        return 0//self.cornerButtonWidth * self.outterGapRatio
     }
 
     var isResizable: Bool = false
@@ -143,7 +143,7 @@ internal class CropOverlay: UIView {
 		cornerButtons = [createButton(), createButton(), createButton(), createButton()]
 		
 		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
-		addGestureRecognizer(dragGestureRecognizer)
+//        addGestureRecognizer(dragGestureRecognizer)
     }
     
     func createLine() -> UIView {
@@ -158,7 +158,7 @@ internal class CropOverlay: UIView {
 		button.backgroundColor = UIColor.clear
 		
 		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
-		button.addGestureRecognizer(dragGestureRecognizer)
+//        button.addGestureRecognizer(dragGestureRecognizer)
 
 		addSubview(button)
 		return button
