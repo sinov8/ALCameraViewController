@@ -41,13 +41,11 @@ internal class CropOverlay: UIView {
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         createLines()
-        isUserInteractionEnabled = false
     }
 
     internal required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         createLines()
-        isUserInteractionEnabled = false
     }
     
     override func layoutSubviews() {
@@ -187,7 +185,7 @@ internal class CropOverlay: UIView {
 				}
 
                 let minimumFrame = CGRect(x: newFrame.origin.x, y: newFrame.origin.y, width: max(newFrame.size.width, minimumSize.width + 2 * outterGap), height: max(newFrame.size.height, minimumSize.height + 2 * outterGap))
-				frame = minimumFrame
+                frame = minimumFrame
 				layoutSubviews()
 
 				gestureRecognizer.setTranslation(CGPoint.zero, in: self)
