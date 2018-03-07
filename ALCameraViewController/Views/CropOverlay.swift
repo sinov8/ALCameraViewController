@@ -185,7 +185,11 @@ internal class CropOverlay: UIView {
 				}
 
                 let minimumFrame = CGRect(x: newFrame.origin.x, y: newFrame.origin.y, width: max(newFrame.size.width, minimumSize.width + 2 * outterGap), height: max(newFrame.size.height, minimumSize.height + 2 * outterGap))
-                frame = minimumFrame
+                
+				frame = CGRect(x: max(minimumFrame.minX, 0),
+                               y: max(minimumFrame.minY, 0),
+                               width: min(minimumFrame.width, (superview?.frame.width ?? frame.width) - max(minimumFrame.minX, 0)),
+                               height: min(minimumFrame.height, (superview?.frame.height ?? frame.height) - max(minimumFrame.minX, 0)))
 				layoutSubviews()
 
 				gestureRecognizer.setTranslation(CGPoint.zero, in: self)
