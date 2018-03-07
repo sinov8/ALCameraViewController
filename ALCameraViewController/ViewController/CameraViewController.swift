@@ -93,6 +93,7 @@ open class CameraViewController: UIViewController {
     let cameraOverlay : CropOverlay = {
         let cameraOverlay = CropOverlay()
         cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
+        cameraOverlay.isUserInteractionEnabled = false
         return cameraOverlay
     }()
     
