@@ -103,13 +103,10 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         let frame = croppingParameters.isEnabled ? cropOverlay.frame : view.bounds
         
         scrollView.contentInset = calculateScrollViewInsets(frame)
-        scrollView.minimumZoomScale = scale/10
+        scrollView.minimumZoomScale = scale
         scrollView.zoomScale = scale
         centerScrollViewContents()
         centerImageViewOnRotate()
-        
-        scrollView.contentOffset = CGPoint(x: (imageView.bounds.size.width * scale - view.bounds.size.width)/2,
-                                           y: (imageView.bounds.size.height * scale - view.bounds.size.height)/2)
     }
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -161,9 +158,9 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
         var _size = size
         
-                if croppingParameters.isEnabled {
-                    _size = cropOverlay.frame.size
-                }
+        if croppingParameters.isEnabled {
+            _size = cropOverlay.frame.size
+        }
         
         guard let image = imageView.image else {
             return 1
@@ -180,8 +177,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             scale = min(scaleWidth, scaleHeight)
         }
         
-                return scale
-        //return min(scaleWidth, scaleHeight)
+        return scale
     }
     
     private func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
@@ -373,4 +369,3 @@ extension UIImage {
         return normalizedImage
     }
 }
-
