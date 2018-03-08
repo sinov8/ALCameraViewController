@@ -161,9 +161,9 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
         var _size = size
         
-        //        if croppingParameters.isEnabled {
-        //            _size = cropOverlay.frame.size
-        //        }
+                if croppingParameters.isEnabled {
+                    _size = cropOverlay.frame.size
+                }
         
         guard let image = imageView.image else {
             return 1
@@ -180,8 +180,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             scale = min(scaleWidth, scaleHeight)
         }
         
-        //        return scale
-        return max(scaleWidth, scaleHeight)
+                return scale
+        //return min(scaleWidth, scaleHeight)
     }
     
     private func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
