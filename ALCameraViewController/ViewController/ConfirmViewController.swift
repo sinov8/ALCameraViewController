@@ -10,64 +10,64 @@ import UIKit
 import Photos
 
 public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
-	
-	let imageView = UIImageView()
-	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var cropOverlay: CropOverlay!
-	@IBOutlet weak var cancelButton: UIButton!
-	@IBOutlet weak var confirmButton: UIButton!
-	@IBOutlet weak var centeringView: UIView!
-	
+    
+    let imageView = UIImageView()
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var cropOverlay: CropOverlay!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var centeringView: UIView!
+    
     var croppingParameters: CroppingParameters {
         didSet {
             cropOverlay.isResizable = croppingParameters.allowResizing
             cropOverlay.minimumSize = croppingParameters.minimumSize
         }
     }
-
-	var verticalPadding: CGFloat = 30
-	var horizontalPadding: CGFloat = 30
-	
-	public var onComplete: CameraViewCompletion?
-
-	let asset: PHAsset?
-	let image: UIImage?
-	
-	public init(image: UIImage, croppingParameters: CroppingParameters) {
-		self.croppingParameters = croppingParameters
-		self.asset = nil
-		self.image = image
-		super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
-	}
-	
-	public init(asset: PHAsset, croppingParameters: CroppingParameters) {
-		self.croppingParameters = croppingParameters
-		self.asset = asset
-		self.image = nil
-		super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
-	}
-	
+    
+    var verticalPadding: CGFloat = 0
+    var horizontalPadding: CGFloat = 0
+    
+    public var onComplete: CameraViewCompletion?
+    
+    let asset: PHAsset?
+    let image: UIImage?
+    
+    public init(image: UIImage, croppingParameters: CroppingParameters) {
+        self.croppingParameters = croppingParameters
+        self.asset = nil
+        self.image = image
+        super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
+    }
+    
+    public init(asset: PHAsset, croppingParameters: CroppingParameters) {
+        self.croppingParameters = croppingParameters
+        self.asset = asset
+        self.image = nil
+        super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-	}
-	
-	public override var prefersStatusBarHidden: Bool {
-		return true
-	}
-	
-	public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-		return UIStatusBarAnimation.slide
-	}
-	
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-
-		view.backgroundColor = UIColor.black
-		
-		scrollView.addSubview(imageView)
-		scrollView.delegate = self
-		scrollView.maximumZoomScale = 1
-		
+    }
+    
+    public override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.black
+        
+        scrollView.addSubview(imageView)
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 1
+        
         cropOverlay.isHidden = true
         cropOverlay.isResizable = croppingParameters.allowResizing
         cropOverlay.isMovable = croppingParameters.allowMoving
@@ -327,39 +327,39 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 }
 
 extension UIImage {
-	func crop(rect: CGRect) -> UIImage {
-
-		var rectTransform: CGAffineTransform
-		switch imageOrientation {
-		case .left:
-			rectTransform = CGAffineTransform(rotationAngle: radians(90)).translatedBy(x: 0, y: -size.height)
-		case .right:
-			rectTransform = CGAffineTransform(rotationAngle: radians(-90)).translatedBy(x: -size.width, y: 0)
-		case .down:
-			rectTransform = CGAffineTransform(rotationAngle: radians(-180)).translatedBy(x: -size.width, y: -size.height)
-		default:
-			rectTransform = CGAffineTransform.identity
-		}
-		
-		rectTransform = rectTransform.scaledBy(x: scale, y: scale)
-		
-		if let cropped = cgImage?.cropping(to: rect.applying(rectTransform)) {
-			return UIImage(cgImage: cropped, scale: scale, orientation: imageOrientation).fixOrientation()
-		}
-		
-		return self
-	}
-	
-	func fixOrientation() -> UIImage {
-		if imageOrientation == .up {
-			return self
-		}
-		
-		UIGraphicsBeginImageContextWithOptions(size, false, scale)
-		draw(in: CGRect(origin: .zero, size: size))
-		let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
-		UIGraphicsEndImageContext()
-		
-		return normalizedImage
-	}
+    func crop(rect: CGRect) -> UIImage {
+        
+        var rectTransform: CGAffineTransform
+        switch imageOrientation {
+        case .left:
+            rectTransform = CGAffineTransform(rotationAngle: radians(90)).translatedBy(x: 0, y: -size.height)
+        case .right:
+            rectTransform = CGAffineTransform(rotationAngle: radians(-90)).translatedBy(x: -size.width, y: 0)
+        case .down:
+            rectTransform = CGAffineTransform(rotationAngle: radians(-180)).translatedBy(x: -size.width, y: -size.height)
+        default:
+            rectTransform = CGAffineTransform.identity
+        }
+        
+        rectTransform = rectTransform.scaledBy(x: scale, y: scale)
+        
+        if let cropped = cgImage?.cropping(to: rect.applying(rectTransform)) {
+            return UIImage(cgImage: cropped, scale: scale, orientation: imageOrientation).fixOrientation()
+        }
+        
+        return self
+    }
+    
+    func fixOrientation() -> UIImage {
+        if imageOrientation == .up {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(in: CGRect(origin: .zero, size: size))
+        let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
+        UIGraphicsEndImageContext()
+        
+        return normalizedImage
+    }
 }

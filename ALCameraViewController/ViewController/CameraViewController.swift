@@ -93,6 +93,7 @@ open class CameraViewController: UIViewController {
     let cameraOverlay : CropOverlay = {
         let cameraOverlay = CropOverlay()
         cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
+        cameraOverlay.isUserInteractionEnabled = false
         return cameraOverlay
     }()
     
@@ -248,7 +249,7 @@ open class CameraViewController: UIViewController {
         configFlashEdgeButtonConstraint(statusBarOrientation)
         configFlashGravityButtonConstraint(statusBarOrientation)
         
-        let padding : CGFloat = portrait ? 16.0 : -16.0
+        let padding : CGFloat = 0//portrait ? 16.0 : -16.0
         removeCameraOverlayEdgesConstraints()
         configCameraOverlayEdgeOneContraint(portrait, padding: padding)
         configCameraOverlayEdgeTwoConstraint(portrait, padding: padding)
