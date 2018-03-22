@@ -157,8 +157,8 @@ open class CameraViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-	
-	private let allowsLibraryAccess: Bool
+    
+    private let allowsLibraryAccess: Bool
   
     public init(croppingParameters: CroppingParameters = CroppingParameters(),
                 allowsLibraryAccess: Bool = true,
@@ -172,13 +172,12 @@ open class CameraViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         cameraOverlay.isHidden = !croppingParameters.isEnabled
-        cameraOverlay.isUserInteractionEnabled = false
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
-		swapButton.isEnabled = allowsSwapCameraOrientation
-		swapButton.isHidden = !allowsSwapCameraOrientation
+        swapButton.isEnabled = allowsSwapCameraOrientation
+        swapButton.isHidden = !allowsSwapCameraOrientation
     }
-	
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -520,7 +519,7 @@ open class CameraViewController: UIViewController {
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
-		if allowsLibraryAccess {
+        if allowsLibraryAccess {
         _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { [weak self] asset in
@@ -534,12 +533,12 @@ open class CameraViewController: UIViewController {
                 self?.hideSpinner(spinner)
             }
             .save()
-		} else {
-			layoutCameraResult(uiImage: image)
-			hideSpinner(spinner)
-		}
+        } else {
+            layoutCameraResult(uiImage: image)
+            hideSpinner(spinner)
+        }
     }
-	
+    
     internal func close() {
         onCompletion?(nil, nil)
         onCompletion = nil
@@ -581,37 +580,37 @@ open class CameraViewController: UIViewController {
         cameraView.swapCameraInput()
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevice.Position.front
     }
-	
-	internal func layoutCameraResult(uiImage: UIImage) {
-		cameraView.stopSession()
-		startConfirmController(uiImage: uiImage)
-		toggleButtons(enabled: true)
-	}
-	
+    
+    internal func layoutCameraResult(uiImage: UIImage) {
+        cameraView.stopSession()
+        startConfirmController(uiImage: uiImage)
+        toggleButtons(enabled: true)
+    }
+    
     internal func layoutCameraResult(asset: PHAsset) {
         cameraView.stopSession()
         startConfirmController(asset: asset)
         toggleButtons(enabled: true)
     }
-	
-	private func startConfirmController(uiImage: UIImage) {
-		let confirmViewController = ConfirmViewController(image: uiImage, croppingParameters: croppingParameters)
-		confirmViewController.onComplete = { [weak self] image, asset in
-			defer {
-				self?.dismiss(animated: true, completion: nil)
-			}
-			
-			guard let image = image else {
-				return
-			}
-			
-			self?.onCompletion?(image, asset)
-			self?.onCompletion = nil
-		}
-		confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-		present(confirmViewController, animated: true, completion: nil)
-	}
-	
+    
+    private func startConfirmController(uiImage: UIImage) {
+        let confirmViewController = ConfirmViewController(image: uiImage, croppingParameters: croppingParameters)
+        confirmViewController.onComplete = { [weak self] image, asset in
+            defer {
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            guard let image = image else {
+                return
+            }
+            
+            self?.onCompletion?(image, asset)
+            self?.onCompletion = nil
+        }
+        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(confirmViewController, animated: true, completion: nil)
+    }
+    
     private func startConfirmController(asset: PHAsset) {
         let confirmViewController = ConfirmViewController(asset: asset, croppingParameters: croppingParameters)
         confirmViewController.onComplete = { [weak self] image, asset in
