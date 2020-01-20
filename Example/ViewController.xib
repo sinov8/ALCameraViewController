@@ -11,8 +11,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="ALCameraViewController" customModuleProvider="target">
             <connections>
                 <outlet property="croppingParametersView" destination="aZk-39-lei" id="iih-He-zYC"/>
+                <outlet property="croppingSwitch" destination="kvv-7d-Re7" id="yTk-yz-irL"/>
                 <outlet property="imageView" destination="I4G-in-XtY" id="U1I-c7-fHk"/>
+                <outlet property="librarySwitch" destination="JPj-mG-Hu1" id="ujl-Kd-dtE"/>
                 <outlet property="minimumSizeLabel" destination="DXi-q2-e5s" id="NxY-Mc-zZv"/>
+                <outlet property="movableSwitch" destination="DSI-Wk-w93" id="s31-cg-21e"/>
+                <outlet property="resizableSwitch" destination="k5h-ry-m8S" id="AHK-Lb-kPg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NQI-AD-Uhb"/>
             </connections>
         </placeholder>
