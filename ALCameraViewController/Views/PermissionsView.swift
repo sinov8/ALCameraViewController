@@ -84,8 +84,8 @@ internal class PermissionsView: UIView {
     }
     
     @objc func openSettings() {
-        if let appSettings = URL(string: UIApplicationOpenSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-            UIApplication.shared.openURL(appSettings)
+        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+            UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
         }
     }
     
