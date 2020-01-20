@@ -31,7 +31,7 @@ internal class CropOverlay: UIView {
 
     private let outterGapRatio: CGFloat = 1 / 3
     private var outterGap: CGFloat {
-        return 0//cornerButtonWidth * self.outterGapRatio
+        return cornerButtonWidth * self.outterGapRatio
     }
 
     var isResizable: Bool = false

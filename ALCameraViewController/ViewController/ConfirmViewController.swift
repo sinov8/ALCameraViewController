@@ -300,12 +300,12 @@ public class ConfirmViewController: UIViewController {
     
     func showSpinner() {
         spinner = UIActivityIndicatorView()
-        spinner!.style = .white
+        spinner!.activityIndicatorViewStyle = .white
         spinner!.center = centeredView.center
         spinner!.startAnimating()
         
         view.addSubview(spinner!)
-        view.bringSubviewToFront(spinner!)
+        view.bringSubview(toFront: spinner!)
     }
     
     func hideSpinner() {
@@ -371,7 +371,7 @@ extension ConfirmViewController: CropOverlayDelegate {
 
 extension UIImage {
     func crop(rect: CGRect) -> UIImage {
-        
+
         var rectTransform: CGAffineTransform
         switch imageOrientation {
         case .left:

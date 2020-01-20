@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var minimumSizeLabel: UILabel!
     @IBOutlet weak var librarySwitch: UISwitch!
     @IBOutlet weak var croppingSwitch: UISwitch!
     @IBOutlet weak var resizableSwitch: UISwitch!
